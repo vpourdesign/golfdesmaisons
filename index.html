@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Golf des Maisons — Édition 2026</title>
+  <meta name="description" content="Tournoi de golf caritatif au profit de la Fondation Un toit pour tous de Royal LePage. 15 septembre 2026, Club de Golf Rosemère Fontainebleau.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <!-- Lenis -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis/bundled/lenis.min.js"></script>
+
+  <style>
+    /* ========== CUSTOM PROPERTIES ========== */
+    :root {
+      /* 1 — DOMINANT: Masters Green */
+      --green: #1a5c38;
+      --green-dark: #145a30;
+      --green-deeper: #0f4a28;
+      --green-light: #237a48;
+      /* 2 — ÉNERGIE: Buzzing Bees */
+      --gold: #e8d44d;
+      --gold-light: #f0e06a;
+      --gold-dim: #c4b23e;
+      /* 3 — SIGNATURE: Blush Azalea */
+      --pink: #d4537e;
+      --pink-glow: #e06690;
+      /* 4 — FOND: Ivoire */
+      --ivory: #f5f0e8;
+      --ivory-dim: #e8e0d4;
+      /* Derived */
+      --bg-deep: var(--green);
+      --bg-surface: var(--green-dark);
+      --bg-elevated: var(--green-light);
+      --green-brand: var(--green);
+      --text-primary: var(--ivory);
+      --text-secondary: #a8c4b0;
+      --text-muted: #7a9e84;
+      --border-subtle: rgba(255, 255, 255, 0.1);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+
+    /* ========== UTILITY ========== */
+    .container {
+      width: min(90%, 1280px);
+      margin-inline: auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: clamp(0.7rem, 1vw, 0.8rem);
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    }
+
+    .section-label::before {
+      content: '';
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .section-padding {
+      padding-block: clamp(5rem, 10vw, 8rem);
+    }
+
+    h2.section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    .gold-accent { color: var(--gold); }
+    .pink-accent { color: var(--pink); }
+
+    /* ========== DIAGONAL DECORATOR (from the presentation) ========== */
+    .diagonal-line {
+      position: absolute;
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+      transform: rotate(-35deg);
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    /* ========== NAV ========== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 0;
+      transition: background 0.5s var(--ease-out-expo), padding 0.5s var(--ease-out-expo), backdrop-filter 0.5s var(--ease-out-expo);
+    }
+
+    .nav.scrolled {
+      background: rgba(15, 74, 40, 0.9);
+      backdrop-filter: blur(20px) saturate(1.5);
+      -webkit-backdrop-filter: blur(20px) saturate(1.5);
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: min(90%, 1280px);
+      margin-inline: auto;
+    }
+
+    .nav-logo {
+      width: 48px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: clamp(1.5rem, 2.5vw, 2.5rem);
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--text-secondary);
+      transition: color 0.3s var(--ease-out-expo);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.4s var(--ease-out-expo);
+    }
+
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      background: var(--green-brand);
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-radius: 100px;
+      transition: all 0.4s var(--ease-out-expo);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--pink) 0%, var(--pink-glow) 100%);
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-out-expo);
+      border-radius: inherit;
+    }
+
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-primary span { position: relative; z-index: 1; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px oklch(65% 0.2 0 / 0.25); }
+
+    .btn-primary:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2.5rem;
+      background: var(--gold);
+      color: var(--green-deeper);
+      font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      border-radius: 100px;
+      transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px oklch(70% 0.12 85 / 0.3);
+      background: var(--gold-light);
+    }
+
+    .btn-gold:focus-visible {
+      outline: 2px solid var(--text-primary);
+      outline-offset: 3px;
+    }
+
+    .btn-gold:active { transform: translateY(0); }
+
+    /* Mobile nav toggle */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      padding: 0.5rem;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text-primary);
+      transition: all 0.3s var(--ease-out-expo);
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      min-height: 100vh;
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      padding-top: clamp(4rem, 8vh, 5.5rem);
+      padding-bottom: clamp(1rem, 2vh, 1.5rem);
+      position: relative;
+      overflow: hidden;
+      background: #1a5c38;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: clamp(2rem, 3vw, 3rem);
+      align-items: center;
+      width: min(92%, 1400px);
+      margin-inline: auto;
+    }
+
+    .hero-image-wrap {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-image-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, var(--bg-deep) 0%, transparent 40%),
+        linear-gradient(135deg, oklch(20% 0.08 145 / 0.4) 0%, transparent 60%);
+      mix-blend-mode: normal;
+    }
+
+    .hero-image-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: oklch(30% 0.12 145 / 0.15);
+      mix-blend-mode: multiply;
+      z-index: 1;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(0.6rem, 1.2vw, 1rem);
+    }
+
+    .hero-logo {
+      width: clamp(180px, 18vw, 240px);
+      height: auto;
+      margin-bottom: 0.25rem;
+      object-fit: contain;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-title .line-script {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--gold);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1rem, 1.5vw, 1.25rem);
+      color: var(--gold);
+      line-height: 1.5;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      padding-block: 0.75rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: clamp(1rem, 1.3vw, 1.15rem);
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .hero-meta-item svg {
+      width: 20px;
+      height: 20px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .hero-cta {
+      padding-top: 0.75rem;
+    }
+
+    /* Decorative diagonal lines on hero */
+    .hero .diagonal-line:nth-child(1) {
+      top: 15%;
+      right: -40px;
+      width: 300px;
+    }
+
+    .hero .diagonal-line:nth-child(2) {
+      bottom: 20%;
+      right: -20px;
+      width: 180px;
+    }
+
+    /* ========== SPONSOR HIERARCHY ========== */
+    .sponsors-section {
+      padding-block: clamp(2.5rem, 5vw, 4rem);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: var(--green-deeper);
+    }
+
+    .sponsors-tier-label {
+      text-align: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: clamp(1rem, 2vw, 1.5rem);
+      font-weight: 600;
+    }
+
+    .sponsors-tier-label--sm {
+      color: var(--text-muted);
+      font-size: 0.65rem;
+    }
+
+    .sponsors-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+    }
+
+    .sponsor-slot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 1rem;
+      transition: transform 0.4s var(--ease-out-expo), border-color 0.3s, background 0.3s;
+    }
+
+    .sponsor-slot:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold-dim);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .sponsor-slot img {
+      display: block;
+      object-fit: contain;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+
+    .sponsor-slot:hover img { opacity: 1; }
+
+    .sponsor-white-bg {
+      background: white;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sponsor-white-bg:hover {
+      background: white;
+    }
+
+    .sponsor-white-bg img { opacity: 1; }
+
+    .sponsor-lg {
+      padding: clamp(1rem, 2vw, 1.5rem) clamp(1.5rem, 3vw, 2rem);
+    }
+
+    .sponsor-lg img {
+      height: clamp(50px, 6vw, 70px);
+      width: auto;
+    }
+
+    .sponsor-sm {
+      padding: clamp(0.6rem, 1vw, 0.85rem) clamp(1rem, 2vw, 1.5rem);
+    }
+
+    .sponsor-sm img {
+      height: clamp(30px, 4vw, 44px);
+      width: auto;
+    }
+
+    .sponsors-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--border-subtle);
+      margin: clamp(1.5rem, 3vw, 2rem) auto;
+    }
+
+    /* ========== ABOUT / CAUSE ========== */
+    .about {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: center;
+    }
+
+    .about-content p {
+      font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .about-content p strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .about-tagline {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem) !important;
+      color: var(--gold) !important;
+      line-height: 1.4 !important;
+      border-left: 3px solid var(--gold);
+      padding-left: 1.5rem;
+      margin-top: 2rem !important;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-image-wrap {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .about-image-wrap img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .about-image-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, oklch(15% 0.06 145 / 0.6), transparent 50%);
+    }
+
+    .about-image-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: oklch(30% 0.1 145 / 0.12);
+      mix-blend-mode: multiply;
+      z-index: 1;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: -3rem;
+      position: relative;
+      z-index: 2;
+      padding-inline: 1rem;
+    }
+
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: clamp(1rem, 2vw, 1.5rem);
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* ========== CAUSE / STATS ========== */
+    .cause {
+      position: relative;
+      overflow: hidden;
+      background: var(--ivory);
+      color: var(--green);
+    }
+
+    .cause .section-title { color: var(--green); }
+    .cause .section-label { color: var(--pink); }
+    .cause p { color: #3d5c45; }
+    .cause .cause-stat {
+      background: var(--green);
+      border-color: transparent;
+    }
+    .cause .cause-stat-text { color: var(--text-secondary); }
+    .cause .cause-cta p { color: var(--green); }
+
+    .cause-inner {
+      max-width: 800px;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .cause-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+      margin-top: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    .cause-stat {
+      padding: clamp(1.5rem, 2.5vw, 2rem);
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-deep);
+    }
+
+    .cause-stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      color: var(--pink);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+
+    .cause-stat-text {
+      font-size: clamp(0.8rem, 1vw, 0.9rem);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .cause-cta {
+      margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    }
+
+    .cause-cta p {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* ========== PROGRAMME ========== */
+    .programme {
+      position: relative;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      max-width: 700px;
+      margin-inline: auto;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, var(--green-brand), var(--gold), var(--green-brand), transparent);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      gap: 1.5rem;
+      padding-block: clamp(1.25rem, 2vw, 1.75rem);
+      position: relative;
+    }
+
+    .timeline-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green-brand);
+      border: 2px solid var(--gold);
+      margin-top: 6px;
+      justify-self: center;
+      position: relative;
+      z-index: 2;
+      transition: transform 0.3s var(--ease-spring), box-shadow 0.3s;
+    }
+
+    .timeline-item:hover .timeline-dot {
+      transform: scale(1.5);
+      box-shadow: 0 0 20px oklch(70% 0.12 85 / 0.4);
+    }
+
+    .timeline-content h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-content p {
+      font-size: clamp(0.85rem, 1vw, 0.9rem);
+      color: var(--text-secondary);
+    }
+
+    .timeline-time {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    /* ========== FORFAITS ========== */
+    .forfaits {
+      background: var(--green-deeper);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .forfaits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1.25rem, 2vw, 2rem);
+    }
+
+    .forfait-card {
+      background: var(--bg-deep);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: clamp(2rem, 3vw, 2.5rem);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
+    }
+
+    .forfait-card:hover {
+      transform: translateY(-8px);
+      box-shadow:
+        0 4px 12px oklch(30% 0.1 145 / 0.15),
+        0 16px 40px oklch(30% 0.1 145 / 0.2);
+    }
+
+    .forfait-card.vip {
+      border-color: var(--gold);
+      background: linear-gradient(165deg, oklch(18% 0.06 85 / 0.3) 0%, var(--bg-deep) 50%);
+    }
+
+    .forfait-card.vip::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+    }
+
+    .forfait-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+
+    .forfait-card.vip .forfait-name { color: var(--gold); }
+
+    .forfait-price {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .forfait-card.vip .forfait-price {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .forfait-price-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .forfait-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex-grow: 1;
+      margin-bottom: 2rem;
+    }
+
+    .forfait-features li {
+      font-size: clamp(0.82rem, 1vw, 0.9rem);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      line-height: 1.5;
+    }
+
+    .forfait-features li::before {
+      content: '✓';
+      color: var(--green-light);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .forfait-card.vip .forfait-features li::before { color: var(--gold); }
+
+    .forfait-note {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--gold-dim);
+      margin-top: auto;
+    }
+
+    /* ========== COMMANDITES ========== */
+    .commandites {
+      position: relative;
+    }
+
+    .commandites-presenter {
+      background: linear-gradient(135deg, var(--green-brand) 0%, oklch(28% 0.1 145) 100%);
+      border-radius: 20px;
+      padding: clamp(2rem, 4vw, 3rem);
+      margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid oklch(35% 0.1 145 / 0.5);
+    }
+
+    .commandites-presenter::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, oklch(70% 0.12 85 / 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .commandites-presenter h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .commandites-presenter p {
+      font-size: clamp(0.82rem, 1vw, 0.9rem);
+      color: oklch(75% 0.04 145);
+      max-width: 500px;
+      line-height: 1.7;
+    }
+
+    .commandites-presenter .price-tag {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .commandites-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    .commandite-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: clamp(1.5rem, 2.5vw, 2rem);
+      transition: transform 0.4s var(--ease-out-expo), border-color 0.4s;
+    }
+
+    .commandite-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--green-mid);
+    }
+
+    .commandite-card h4 {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 1.3vw, 1.15rem);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .commandite-card .cmd-price {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2vw, 1.6rem);
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .commandite-card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ========== STATIONS & ACTIVITÉS ========== */
+    .stations {
+      background: var(--gold);
+      color: var(--green);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stations .section-label { color: var(--green-deeper); }
+    .stations .section-label::before { background: var(--green-deeper); }
+    .stations .section-title { color: var(--green); }
+    .stations .stations-block {
+      background: white;
+      border-color: rgba(26, 92, 56, 0.15);
+    }
+    .stations .stations-block h3 { color: var(--green); }
+    .stations .block-price { color: var(--pink); }
+    .stations .stations-block li { color: #3d5c45; }
+    .stations .stations-block li::before { color: var(--green); }
+    .stations .stations-tag {
+      background: var(--green);
+      color: var(--ivory);
+      border-color: transparent;
+    }
+    .stations .activity-item {
+      background: rgba(26, 92, 56, 0.08);
+      border-color: rgba(26, 92, 56, 0.15);
+    }
+    .stations .activity-item span:first-child { color: var(--green); }
+    .stations .activity-item span:last-child { color: var(--pink); }
+    .stations .activity-item:hover { border-color: var(--green); }
+    .stations h4 { color: var(--green) !important; }
+
+    .stations-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 3rem);
+    }
+
+    .stations-block {
+      background: var(--bg-deep);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: clamp(2rem, 3vw, 2.5rem);
+    }
+
+    .stations-block h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .stations-block .block-price {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .stations-block ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .stations-block li {
+      font-size: clamp(0.82rem, 1vw, 0.9rem);
+      color: var(--text-secondary);
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .stations-block li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .stations-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+
+    .stations-tag {
+      padding: 0.35rem 0.85rem;
+      background: oklch(22% 0.05 145);
+      border-radius: 100px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .activities-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .activity-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      background: oklch(18% 0.05 145);
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+      transition: border-color 0.3s;
+    }
+
+    .activity-item:hover { border-color: var(--green-mid); }
+
+    .activity-item span:first-child {
+      font-size: clamp(0.85rem, 1vw, 0.95rem);
+      font-weight: 500;
+    }
+
+    .activity-item span:last-child {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--gold);
+      font-size: clamp(0.9rem, 1.1vw, 1rem);
+    }
+
+    /* ========== ENCAN SILENCIEUX ========== */
+    .encan {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .encan-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 5rem);
+      align-items: center;
+    }
+
+    .encan-content p {
+      font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .encan-objective {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      background: linear-gradient(135deg, oklch(22% 0.06 85 / 0.4), oklch(18% 0.04 85 / 0.2));
+      border: 1px solid var(--gold-dim);
+      border-radius: 12px;
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .encan-categories {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .encan-cat {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      transition: transform 0.4s var(--ease-out-expo), border-color 0.3s;
+    }
+
+    .encan-cat:hover {
+      transform: translateX(8px);
+      border-color: var(--gold-dim);
+    }
+
+    .encan-cat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: oklch(22% 0.06 145);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .encan-cat h4 {
+      font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    .encan-cat p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ========== CONTACT / CTA ========== */
+    .contact {
+      background: var(--ivory);
+      color: var(--green);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact .section-label { color: var(--pink); }
+    .contact .section-label::before { background: var(--pink); }
+    .contact .section-title { color: var(--green); }
+    .contact .contact-role { color: var(--pink); }
+    .contact .contact-details a { color: #3d5c45; }
+    .contact .contact-details a:hover { color: var(--green); }
+    .contact .contact-note { color: #7a9e84; }
+    .contact .btn-gold { background: var(--green); color: var(--ivory); }
+    .contact .btn-gold:hover { background: var(--green-light); }
+
+    .contact-inner {
+      max-width: 700px;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2vw, 1.6rem);
+      font-weight: 700;
+    }
+
+    .contact-role {
+      font-size: 0.85rem;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .contact-details {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 0.5rem;
+    }
+
+    .contact-details a {
+      font-size: clamp(0.85rem, 1vw, 0.95rem);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s;
+    }
+
+    .contact-details a:hover { color: var(--gold); }
+
+    .contact-details a svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .contact-note {
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      padding: clamp(2rem, 4vw, 3rem) 0;
+      border-top: 1px solid var(--border-subtle);
+      text-align: center;
+    }
+
+    .footer-logo {
+      width: 80px;
+      margin-inline: auto;
+      margin-bottom: 1rem;
+      opacity: 0.6;
+    }
+
+    .footer p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    /* ========== NOISE OVERLAY ========== */
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    /* ========== REVEAL ANIMATIONS ========== */
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale {
+      opacity: 0;
+      transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    }
+
+    .reveal { transform: translateY(40px); }
+    .reveal-left { transform: translateX(-40px); }
+    .reveal-right { transform: translateX(40px); }
+    .reveal-scale { transform: scale(0.92); }
+
+    .reveal.is-visible,
+    .reveal-left.is-visible,
+    .reveal-right.is-visible,
+    .reveal-scale.is-visible {
+      opacity: 1;
+      transform: translateY(0) translateX(0) scale(1);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .hero-content {
+        order: -1;
+        text-align: center;
+        align-items: center;
+      }
+
+      .hero-meta { align-items: center; }
+
+      .hero-image-wrap { aspect-ratio: 16 / 9; }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .forfaits-grid {
+        grid-template-columns: 1fr;
+        max-width: 440px;
+        margin-inline: auto;
+      }
+
+      .stations-grid { grid-template-columns: 1fr; }
+      .encan-inner { grid-template-columns: 1fr; }
+      .cause-stats { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(15, 74, 40, 0.95);
+        backdrop-filter: blur(20px);
+        padding: 1.5rem;
+        gap: 1rem;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .commandites-presenter {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+      }
+
+      .contact-details { flex-direction: column; align-items: center; gap: 1rem; }
+
+      .commandites-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Noise texture overlay -->
+  <div class="noise" aria-hidden="true"></div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <div class="nav-logo" aria-hidden="true"></div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">L'événement</a></li>
+        <li><a href="#programme">Programme</a></li>
+        <li><a href="#forfaits">Forfaits</a></li>
+        <li><a href="#commandites">Commandites</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#forfaits" class="btn-primary"><span>S'inscrire</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="diagonal-line" aria-hidden="true"></div>
+    <div class="diagonal-line" aria-hidden="true"></div>
+    <div class="hero-grid">
+      <div class="hero-image-wrap reveal-scale">
+        <img src="1.png" alt="Golfeur au lever du soleil sur un parcours brumeux" width="1200" height="750" loading="eager">
+      </div>
+      <div class="hero-content">
+        <img src="logo-final.jpg" alt="Le Golf des Maisons — Édition 2026" class="hero-logo reveal" width="160" height="160">
+        <h1 class="hero-title reveal">
+          Le Golf<br>
+          <span class="line-script">des Maisons</span>
+        </h1>
+        <p class="hero-subtitle reveal">
+          « On ne joue pas seulement au golf.<br>On change des vies. »
+        </p>
+        <div class="hero-meta reveal">
+          <div class="hero-meta-item">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+            <span>15 septembre 2026</span>
+          </div>
+          <div class="hero-meta-item">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+            <span>Club de Golf Rosemère Fontainebleau</span>
+          </div>
+        </div>
+        <div class="hero-cta reveal">
+          <a href="#forfaits" class="btn-gold"><span>S'inscrire maintenant</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COMMANDITAIRES HIERARCHY ========== -->
+  <div class="sponsors-section" id="sponsors">
+    <div class="container">
+      <p class="sponsors-tier-label">Partenaires principaux</p>
+      <div class="sponsors-row sponsors-principal">
+        <div class="sponsor-slot sponsor-lg sponsor-white-bg"><img src="commandite1.png" alt="Partenaire principal 1"></div>
+        <div class="sponsor-slot sponsor-lg sponsor-white-bg"><img src="commandite2.png" alt="Partenaire principal 2"></div>
+        <div class="sponsor-slot sponsor-lg sponsor-white-bg"><img src="commandite3.png" alt="Partenaire principal 3"></div>
+      </div>
+      <div class="sponsors-divider"></div>
+      <p class="sponsors-tier-label sponsors-tier-label--sm">Partenaires</p>
+      <div class="sponsors-row sponsors-secondary">
+        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 4"></div>
+        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 5"></div>
+        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 6"></div>
+        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 7"></div>
+        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 8"></div>
+        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 9"></div>
+        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 10"></div>
+        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 11"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== ABOUT / L'ÉVÉNEMENT ========== -->
+  <section class="about section-padding" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content">
+          <div class="section-label reveal">L'événement</div>
+          <h2 class="section-title reveal">Soyez de la<br>partie</h2>
+          <p class="reveal">Un événement d'exception pour une cause qui compte. La Classique de Golf <strong>Un toit pour tous</strong> rassemble plus de 140 leaders d'affaires des secteurs immobilier, construction et finance pour une journée mémorable.</p>
+          <p class="reveal"><strong>Entrepreneurs, professionnels et dirigeants</strong> se réunissent pour un tournoi de golf, un cocktail dînatoire, un encan silencieux et une remise de prix — le tout au profit de la Fondation Un toit pour tous de Royal LePage.</p>
+          <p class="about-tagline reveal">« On ne joue pas seulement au golf. On change des vies. »</p>
+        </div>
+        <div class="about-visual">
+          <div class="about-image-wrap reveal-right">
+            <img src="2.jpg" alt="Groupe d'amis trinquant au clubhouse avec vue sur le parcours" width="600" height="600" loading="lazy">
+          </div>
+          <div class="stats-row">
+            <div class="stat-card reveal">
+              <div class="stat-number" data-count="140">0</div>
+              <div class="stat-label">Leaders d'affaires</div>
+            </div>
+            <div class="stat-card reveal">
+              <div class="stat-number">1</div>
+              <div class="stat-label">Journée unique</div>
+            </div>
+            <div class="stat-card reveal">
+              <div class="stat-number">1</div>
+              <div class="stat-label">Grande cause</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== LA CAUSE ========== -->
+  <section class="cause section-padding" id="cause">
+    <div class="container">
+      <div class="cause-inner">
+        <div class="section-label reveal" style="justify-content: center;">La cause</div>
+        <h2 class="section-title reveal">À propos de<br>notre cause</h2>
+        <p class="reveal" style="color: var(--text-secondary); font-size: clamp(0.95rem, 1.2vw, 1.05rem); margin-top: 1rem;">
+          Nous croyons que chacun mérite un endroit sécuritaire où vivre. Malheureusement, pour trop de femmes et d'enfants, la maison n'est pas un lieu de sécurité. La violence conjugale touche toutes les communautés, partout au pays.
+        </p>
+        <div class="cause-stats">
+          <div class="cause-stat reveal">
+            <div class="cause-stat-number">1 sur 2</div>
+            <div class="cause-stat-text">Canadiennes ont subi de la violence physique ou sexuelle</div>
+          </div>
+          <div class="cause-stat reveal">
+            <div class="cause-stat-number">360 000</div>
+            <div class="cause-stat-text">Enfants exposés à la violence familiale chaque année</div>
+          </div>
+          <div class="cause-stat reveal">
+            <div class="cause-stat-number">3 000+</div>
+            <div class="cause-stat-text">Femmes et 2 500 enfants trouvent refuge chaque jour</div>
+          </div>
+        </div>
+        <div class="cause-cta reveal">
+          <p>Participer à la Classique de golf Un toit pour tous,<br>c'est contribuer concrètement à <span class="gold-accent">changer des vies</span>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROGRAMME ========== -->
+  <section class="programme section-padding" id="programme">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: clamp(2.5rem, 5vw, 4rem);">
+        <div class="section-label reveal" style="justify-content: center;">Programme</div>
+        <h2 class="section-title reveal">La journée</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal-left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-time">11 h 00</span>
+            <h3>Accueil & Inscription</h3>
+            <p>Arrivée des participants, remise des kits de bienvenue et pratique sur le vert d'exercice.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-time">12 h 00</span>
+            <h3>Déjeuner</h3>
+            <p>Repas convivial au clubhouse pour lancer la journée en grand.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-time">13 h 00</span>
+            <h3>Tournoi Shotgun — 18 trous</h3>
+            <p>Départ simultané sur le parcours du Club de Golf Rosemère Fontainebleau.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-time">En parcours</span>
+            <h3>Stations animées</h3>
+            <p>Bière, gin, whisky, café, dessert, BBQ et cigare — à découvrir sur le parcours.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-time">18 h 00</span>
+            <h3>Cocktail dînatoire</h3>
+            <p>Soirée festive avec cocktails, bouchées et réseautage entre leaders.</p>
+          </div>
+        </div>
+        <div class="timeline-item reveal-left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-time">19 h 00</span>
+            <h3>Encan silencieux & Remise des prix</h3>
+            <p>Enchères sur des lots exclusifs et célébration des gagnants du tournoi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FORFAITS ========== -->
+  <section class="forfaits section-padding" id="forfaits">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: clamp(2.5rem, 5vw, 4rem);">
+        <div class="section-label reveal" style="justify-content: center;">Participation</div>
+        <h2 class="section-title reveal">Forfaits de<br>participation</h2>
+      </div>
+      <div class="forfaits-grid">
+        <!-- PAIRE -->
+        <div class="forfait-card reveal">
+          <div class="forfait-name">Paire</div>
+          <div class="forfait-price">1 000 $</div>
+          <div class="forfait-price-sub">2 joueurs</div>
+          <ul class="forfait-features">
+            <li>Déjeuner inclus</li>
+            <li>Parcours 18 trous</li>
+            <li>Boîte à lunch</li>
+            <li>Voiturette partagée</li>
+            <li>Cocktail dînatoire</li>
+          </ul>
+          <div class="forfait-note">Inclus : participation au tournoi 18 trous</div>
+          <div style="margin-top: 1.5rem;">
+            <a href="#contact" class="btn-primary" style="width: 100%; justify-content: center;"><span>Réserver</span></a>
+          </div>
+        </div>
+        <!-- QUATUOR -->
+        <div class="forfait-card reveal">
+          <div class="forfait-name">Quatuor</div>
+          <div class="forfait-price">2 000 $</div>
+          <div class="forfait-price-sub">4 joueurs — 500 $ / personne</div>
+          <ul class="forfait-features">
+            <li>Déjeuner pour 4</li>
+            <li>Parcours 18 trous</li>
+            <li>Boîte à lunch pour 4</li>
+            <li>2 voiturettes</li>
+            <li>Cocktail dînatoire pour 4</li>
+          </ul>
+          <div class="forfait-note">Idéal pour les équipes corporatives</div>
+          <div style="margin-top: 1.5rem;">
+            <a href="#contact" class="btn-primary" style="width: 100%; justify-content: center;"><span>Réserver</span></a>
+          </div>
+        </div>
+        <!-- VIP -->
+        <div class="forfait-card vip reveal">
+          <div class="forfait-name">Quatuor VIP</div>
+          <div class="forfait-price">2 750 $</div>
+          <div class="forfait-price-sub">4 joueurs VIP — Tout inclus</div>
+          <ul class="forfait-features">
+            <li>Tout inclus pour 4 joueurs</li>
+            <li>Voiturettes personnalisées</li>
+            <li>Logo sur les affiches</li>
+            <li>Mousseux à l'accueil</li>
+            <li>Casiers et accès premium</li>
+          </ul>
+          <div class="forfait-note">Format premium pour maximiser la visibilité</div>
+          <div style="margin-top: 1.5rem;">
+            <a href="#contact" class="btn-gold" style="width: 100%; justify-content: center;"><span>Réserver VIP</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COMMANDITES ========== -->
+  <section class="commandites section-padding" id="commandites">
+    <div class="container">
+      <div class="section-label reveal">Partenariat</div>
+      <h2 class="section-title reveal">Partenaires<br>principaux</h2>
+
+      <div class="commandites-presenter reveal-scale">
+        <div>
+          <h3>Présentateur officiel</h3>
+          <p>Nom associé au tournoi &bull; 2 quatuors VIP &bull; Logo partout &bull; Discours &bull; Arche au départ &bull; Station commanditée</p>
+        </div>
+        <div class="price-tag">10 000 $</div>
+      </div>
+
+      <div class="commandites-grid">
+        <div class="commandite-card reveal">
+          <h4>Cocktail dînatoire</h4>
+          <div class="cmd-price">5 500 $</div>
+          <p>Visibilité majeure &bull; Logo wall frame/TV &bull; 1 quatuor VIP inclus &bull; Mention soirée</p>
+        </div>
+        <div class="commandite-card reveal">
+          <h4>Commanditaire déjeuner</h4>
+          <div class="cmd-price">3 000 $</div>
+          <p>Visibilité pendant le déjeuner &bull; Logo sur affichage principal</p>
+        </div>
+        <div class="commandite-card reveal">
+          <h4>Boîte à lunch</h4>
+          <div class="cmd-price">2 500 $</div>
+          <p>Visibilité lors de la distribution sur le parcours</p>
+        </div>
+        <div class="commandite-card reveal">
+          <h4>Commanditaire voiturettes</h4>
+          <div class="cmd-price">2 000 $</div>
+          <p>Logo sur les voiturettes &bull; Visibilité tout au long de la journée</p>
+        </div>
+        <div class="commandite-card reveal">
+          <h4>Bouteilles d'eau</h4>
+          <div class="cmd-price">1 500 $</div>
+          <p>Visibilité stations d'eau et parcours</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== STATIONS ANIMÉES ========== -->
+  <section class="stations section-padding" id="stations">
+    <div class="container">
+      <div class="section-label reveal">Partenariat</div>
+      <h2 class="section-title reveal">Parcours &<br>stations animées</h2>
+      <div class="stations-grid">
+        <div class="stations-block reveal-left">
+          <h3>Stations animées</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">6 disponibles</p>
+          <div class="block-price">1 500 $ / station</div>
+          <ul>
+            <li>Tente sur le parcours</li>
+            <li>Interaction directe avec les joueurs</li>
+            <li>Logo et visibilité sur l'événement</li>
+          </ul>
+          <div class="stations-tags">
+            <span class="stations-tag">Bière</span>
+            <span class="stations-tag">Gin</span>
+            <span class="stations-tag">Whisky</span>
+            <span class="stations-tag">Café</span>
+            <span class="stations-tag">Dessert</span>
+            <span class="stations-tag">BBQ</span>
+            <span class="stations-tag">Cigare</span>
+          </div>
+        </div>
+        <div class="stations-block reveal-right">
+          <h3>Trous commandités</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">8 disponibles — 2 commanditaires par trou</p>
+          <div class="block-price">500 $ / trou</div>
+          <h4 style="font-family: var(--font-display); font-size: 1rem; color: var(--gold); margin-top: 1.5rem; margin-bottom: 0.75rem;">Activités spéciales — 4 trous</h4>
+          <div class="activities-list">
+            <div class="activity-item">
+              <span>Trou d'un coup (voiture 1 an)</span>
+              <span>1 500 $</span>
+            </div>
+            <div class="activity-item">
+              <span>Plus long coup de départ</span>
+              <span>1 500 $</span>
+            </div>
+            <div class="activity-item">
+              <span>Plus près du trou</span>
+              <span>1 500 $</span>
+            </div>
+            <div class="activity-item">
+              <span>Battre le pro</span>
+              <span>1 500 $</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ENCAN SILENCIEUX ========== -->
+  <section class="encan section-padding" id="encan">
+    <div class="container">
+      <div class="encan-inner">
+        <div class="encan-content">
+          <div class="section-label reveal">Partenariat encan</div>
+          <h2 class="section-title reveal">Encan<br>silencieux</h2>
+          <p class="reveal">Offrez une contribution et obtenez une visibilité numérique prolongée au-delà de la journée de golf.</p>
+          <div class="encan-objective reveal">Objectif : 10 000 $</div>
+        </div>
+        <div class="encan-categories">
+          <div class="encan-cat reveal-right">
+            <div class="encan-cat-icon">🏆</div>
+            <div>
+              <h4>Expériences sportives</h4>
+              <p>Billets Canadiens, loges, événements</p>
+            </div>
+          </div>
+          <div class="encan-cat reveal-right">
+            <div class="encan-cat-icon">🌿</div>
+            <div>
+              <h4>Séjours & Voyages</h4>
+              <p>Chalet weekend, escapades, forfaits golf</p>
+            </div>
+          </div>
+          <div class="encan-cat reveal-right">
+            <div class="encan-cat-icon">🥂</div>
+            <div>
+              <h4>Gastronomie & Vins</h4>
+              <p>Bouteilles premium, soirées dégustations</p>
+            </div>
+          </div>
+          <div class="encan-cat reveal-right">
+            <div class="encan-cat-icon">⭐</div>
+            <div>
+              <h4>Produits & Services</h4>
+              <p>Vos services, produits, abonnements</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT / CTA ========== -->
+  <section class="contact section-padding" id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <div class="section-label reveal" style="justify-content: center;">Contact</div>
+        <h2 class="section-title reveal">Réservez votre<br><span class="gold-accent">partenariat</span></h2>
+        <p class="reveal" style="color: var(--text-secondary); font-size: clamp(0.95rem, 1.2vw, 1.05rem);">Les places et commandites sont limitées.</p>
+        <div class="contact-info reveal">
+          <div class="contact-name">Simon Mathieu</div>
+          <div class="contact-role">Co-organisateur</div>
+          <div class="contact-details">
+            <a href="tel:5148086443">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+              514-808-6443
+            </a>
+            <a href="mailto:info@simonmathieu.ca">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+              info@simonmathieu.ca
+            </a>
+          </div>
+        </div>
+        <a href="mailto:info@simonmathieu.ca?subject=Inscription%20-%20Le%20Golf%20des%20Maisons%202026" class="btn-gold"><span>S'inscrire maintenant</span></a>
+        <p class="contact-note reveal">La Classique de Golf Un toit pour tous &bull; 15 septembre 2026 &bull; Club de Golf Rosemère Fontainebleau</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <img src="logo-final.jpg" alt="Le Golf des Maisons" class="footer-logo" width="80" height="80">
+      <p>Fondation Un toit pour tous de Royal LePage</p>
+      <p style="margin-top: 0.25rem;">Redonner espoir. Reconstruire des vies.</p>
+      <p style="margin-top: 1rem; opacity: 0.5;">&copy; 2026 Le Golf des Maisons. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    /* ── Lenis smooth scroll ── */
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smooth: true,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    /* ── Nav scroll state ── */
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    /* ── Mobile nav toggle ── */
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    /* ── Smooth scroll for anchor links ── */
+    document.querySelectorAll('a[href^="#"]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) lenis.scrollTo(target, { offset: -80 });
+      });
+    });
+
+    /* ── IntersectionObserver reveals (reliable + staggered) ── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const delay = el.dataset.delay || 0;
+          setTimeout(() => el.classList.add('is-visible'), delay * 1000);
+          revealObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+
+    /* Assign stagger delays to sibling groups */
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach((el, i) => {
+      /* Stagger within parent: find index among reveal siblings */
+      const parent = el.parentElement;
+      const siblings = parent.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+      const siblingIndex = Array.from(siblings).indexOf(el);
+      el.dataset.delay = siblingIndex * 0.1;
+      revealObserver.observe(el);
+    });
+
+    /* ── GSAP extras (parallax, count-up) ── */
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* Sync Lenis with GSAP ScrollTrigger */
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    /* Hero image parallax */
+    gsap.to('.hero-image-wrap img', {
+      yPercent: 15,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1,
+      },
+    });
+
+    /* Count-up animation for stats */
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.count);
+          let start = 0;
+          const duration = 2000;
+          const startTime = performance.now();
+          function step(now) {
+            const progress = Math.min((now - startTime) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(eased * target) + '+';
+            if (progress < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+          countObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-count]').forEach((el) => countObserver.observe(el));
+  </script>
+</body>
+</html>
