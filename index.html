@@ -154,7 +154,18 @@
     }
 
     .nav-logo {
-      width: 48px;
+      display: block;
+      width: clamp(170px, 15vw, 220px);
+      height: auto;
+      object-fit: contain;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: width 0.5s var(--ease-out-expo), border-radius 0.5s var(--ease-out-expo);
+    }
+
+    .nav.scrolled .nav-logo {
+      width: clamp(60px, 5.2vw, 77px);
+      border-radius: 8px;
     }
 
     .nav-links {
@@ -363,13 +374,14 @@
       position: relative;
       border-radius: 24px;
       overflow: hidden;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 5 / 4;
     }
 
     .hero-image-wrap img {
       width: 100%;
-      height: 100%;
+      height: 120%;
       object-fit: cover;
+      will-change: transform;
     }
 
     .hero-image-wrap::after {
@@ -395,22 +407,23 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: clamp(0.6rem, 1.2vw, 1rem);
+      gap: clamp(0.5rem, 0.9vw, 0.85rem);
     }
 
     .hero-logo {
       width: clamp(270px, 27vw, 360px);
       height: auto;
-      margin-bottom: 0.25rem;
+      margin-bottom: -0.5rem;
       object-fit: contain;
     }
 
     .hero-title {
       font-family: var(--font-display);
-      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-size: clamp(2.4rem, 4.4vw, 4rem);
       font-weight: 800;
       line-height: 1.05;
       letter-spacing: -0.03em;
+      margin-top: 0;
     }
 
     .hero-title .line-script {
@@ -430,8 +443,9 @@
     .hero-meta {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      padding-block: 0.75rem;
+      gap: 0.5rem;
+      padding-block: 0.6rem;
+      margin-top: 0.4rem;
       border-top: 1px solid rgba(255,255,255,0.15);
     }
 
@@ -452,7 +466,7 @@
     }
 
     .hero-cta {
-      padding-top: 0.75rem;
+      padding-top: 0.4rem;
     }
 
     /* Decorative diagonal lines on hero */
@@ -1828,7 +1842,9 @@
   <!-- ========== NAVIGATION ========== -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <div class="nav-logo" aria-hidden="true"></div>
+      <a href="#hero" class="nav-logo-link" aria-label="Le Golf des Maisons — accueil">
+        <img src="logo-final.jpg" alt="Le Golf des Maisons" class="nav-logo">
+      </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">L'événement</a></li>
         <li><a href="#programme">Programme</a></li>
@@ -1855,7 +1871,6 @@
         <img src="1.png" alt="Golfeur au lever du soleil sur un parcours brumeux" width="1200" height="750" loading="eager">
       </div>
       <div class="hero-content">
-        <img src="logo-final.jpg" alt="Le Golf des Maisons — Édition 2026" class="hero-logo reveal" width="160" height="160">
         <h1 class="hero-title reveal">
           Le Golf<br>
           <span class="line-script">des Maisons</span>
@@ -2433,8 +2448,10 @@
     gsap.ticker.lagSmoothing(0);
 
     /* Hero image parallax */
-    gsap.to('.hero-image-wrap img', {
-      yPercent: 15,
+    gsap.fromTo('.hero-image-wrap img', {
+      yPercent: -8,
+    }, {
+      yPercent: 8,
       ease: 'none',
       scrollTrigger: {
         trigger: '.hero',
