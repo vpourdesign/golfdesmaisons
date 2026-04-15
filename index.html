@@ -330,7 +330,7 @@
     }
 
     .hero-logo {
-      width: clamp(180px, 18vw, 240px);
+      width: clamp(270px, 27vw, 360px);
       height: auto;
       margin-bottom: 0.25rem;
       object-fit: contain;
@@ -422,6 +422,50 @@
       font-size: 0.65rem;
     }
 
+    .sponsors-subtitle {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      margin: -0.5rem 0 clamp(1.25rem, 2.5vw, 1.75rem);
+    }
+
+    .sponsor-cta {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.55);
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      min-width: clamp(130px, 12vw, 170px);
+      min-height: clamp(52px, 5.5vw, 64px);
+      border: 1px dashed rgba(232, 212, 77, 0.35);
+      background: rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+    }
+
+    .sponsor-cta span {
+      display: inline-block;
+      transition: transform 0.35s var(--ease-out-expo);
+    }
+
+    .sponsor-cta:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+      border-style: solid;
+      background: rgba(232, 212, 77, 0.08);
+      transform: translateY(-3px);
+    }
+    .sponsor-cta:hover span { transform: scale(1.05); }
+
+    .sponsor-cta:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(232, 212, 77, 0.5);
+    }
+
     .sponsors-row {
       display: flex;
       justify-content: center;
@@ -496,7 +540,21 @@
     .about {
       position: relative;
       overflow: hidden;
+      isolation: isolate;
     }
+    .about::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('bg2.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.2;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .about > * { position: relative; z-index: 1; }
 
     .about-grid {
       display: grid;
@@ -604,7 +662,7 @@
 
     .cause .section-title { color: var(--green); }
     .cause .section-label { color: var(--pink); }
-    .cause p { color: #3d5c45; }
+    .cause p { color: var(--green-deeper); }
     .cause .cause-stat {
       background: var(--green);
       border-color: transparent;
@@ -1243,10 +1301,58 @@
     }
 
     .footer-logo {
-      width: 80px;
+      width: 150px;
       margin-inline: auto;
-      margin-bottom: 1rem;
-      opacity: 0.6;
+      margin-bottom: 1.25rem;
+      opacity: 0.75;
+    }
+
+    /* ── VPourDesign signature (footer) ── */
+    .vp-credit {
+      margin-top: clamp(1.75rem, 3vw, 2.5rem);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .vp-credit-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+    }
+    .vp-logo {
+      display: block;
+      width: clamp(90px, 10vw, 120px);
+      height: auto;
+      filter: invert(1) brightness(1) drop-shadow(0 0 0 rgba(232, 212, 77, 0));
+      animation: vpFloat 3s ease-in-out infinite,
+                 vpGlow 3s ease-in-out infinite;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 0.3s ease;
+    }
+    .vp-logo:hover {
+      animation-play-state: paused;
+      filter: invert(1) brightness(1.4) drop-shadow(0 0 18px rgba(232, 212, 77, 0.9));
+      transform: scale(1.07) translateY(-2px);
+    }
+
+    @keyframes vpFloat {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-5px); }
+    }
+    @keyframes vpGlow {
+      0%, 100% {
+        filter: invert(1) brightness(0.7) drop-shadow(0 0 0 rgba(232, 212, 77, 0));
+      }
+      50% {
+        filter: invert(1) brightness(1.25) drop-shadow(0 0 14px rgba(232, 212, 77, 0.55));
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .vp-logo { animation: none; filter: invert(1) brightness(1); }
     }
 
     .footer p {
@@ -1612,18 +1718,20 @@
         <div class="sponsor-slot sponsor-lg sponsor-white-bg"><img src="commandite1.png" alt="Partenaire principal 1"></div>
         <div class="sponsor-slot sponsor-lg sponsor-white-bg"><img src="commandite2.png" alt="Partenaire principal 2"></div>
         <div class="sponsor-slot sponsor-lg sponsor-white-bg"><img src="desjardins.png" alt="Desjardins — Partenaire principal"></div>
+        <div class="sponsor-slot sponsor-lg sponsor-white-bg"><img src="spordle.webp" alt="Spordle — Partenaire principal"></div>
       </div>
       <div class="sponsors-divider"></div>
       <p class="sponsors-tier-label sponsors-tier-label--sm">Partenaires</p>
+      <p class="sponsors-subtitle">Devenez partenaire de notre tournoi</p>
       <div class="sponsors-row sponsors-secondary">
-        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 4"></div>
-        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 5"></div>
-        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 6"></div>
-        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 7"></div>
-        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 8"></div>
-        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 9"></div>
-        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 10"></div>
-        <div class="sponsor-slot sponsor-sm"><img src="https://placehold.co/160x60/1a5c38/8fa888?text=Logo" alt="Partenaire 11"></div>
+        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
+        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
+        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
+        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
+        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
+        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
+        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
+        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
       </div>
     </div>
   </div>
@@ -1686,7 +1794,7 @@
           </div>
         </div>
         <div class="cause-cta reveal">
-          <p>Participer à la Classique de golf Un toit pour tous,<br>c'est contribuer concrètement à <span class="gold-accent">changer des vies</span>.</p>
+          <p>Participer à la Classique de golf Un toit pour tous,<br>c'est contribuer concrètement à <span style="color: var(--pink); font-style: italic;">changer des vies</span>.</p>
         </div>
       </div>
     </div>
@@ -2000,6 +2108,7 @@
                 <option value="paire">Paire — 1 000 $ (2 joueurs)</option>
                 <option value="quatuor">Quatuor — 2 000 $ (4 joueurs)</option>
                 <option value="vip">Quatuor VIP — 2 750 $ (4 joueurs)</option>
+                <option value="partenaire">Devenir partenaire</option>
                 <option value="commandite">Partenariat / Commandite</option>
               </select>
             </div>
@@ -2062,10 +2171,15 @@
   <!-- ========== FOOTER ========== -->
   <footer class="footer">
     <div class="container">
-      <img src="logo-final.jpg" alt="Le Golf des Maisons" class="footer-logo" width="80" height="80">
+      <img src="logo-final.jpg" alt="Le Golf des Maisons" class="footer-logo" width="150" height="150">
       <p>Fondation Un toit pour tous de Royal LePage</p>
       <p style="margin-top: 0.25rem;">Redonner espoir. Reconstruire des vies.</p>
       <p style="margin-top: 1rem; opacity: 0.5;">&copy; 2026 Le Golf des Maisons. Tous droits réservés.</p>
+
+      <a href="https://vpourdesign.com" target="_blank" rel="noopener" class="vp-credit" aria-label="Site conçu par vpourdesign">
+        <span class="vp-credit-label">Conçu par</span>
+        <img class="vp-logo" src="commandite2.png" alt="vpourdesign">
+      </a>
     </div>
   </footer>
 
