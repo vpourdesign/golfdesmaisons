@@ -465,6 +465,49 @@
       flex-shrink: 0;
     }
 
+    .hero-meta-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem 1rem;
+    }
+
+    .btn-calendar {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--gold);
+      background: rgba(232, 212, 77, 0.08);
+      border: 1px solid rgba(232, 212, 77, 0.4);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.35s var(--ease-out-expo), color 0.35s var(--ease-out-expo), border-color 0.35s var(--ease-out-expo), transform 0.35s var(--ease-out-expo);
+      white-space: nowrap;
+    }
+
+    .btn-calendar svg {
+      width: 14px;
+      height: 14px;
+      color: currentColor;
+      flex-shrink: 0;
+    }
+
+    .btn-calendar:hover {
+      background: var(--gold);
+      color: #0f2d1a;
+      border-color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .btn-calendar:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
     .hero-cta {
       padding-top: 0.4rem;
     }
@@ -779,6 +822,20 @@
     }
     .cause-body--center { margin-top: clamp(2rem, 3.5vw, 2.75rem); }
 
+    .cause-subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+      font-weight: 600;
+      font-style: italic;
+      color: var(--gold);
+      margin: clamp(2.5rem, 4.5vw, 3.5rem) auto clamp(0.75rem, 1.5vw, 1.25rem);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .cause-lead strong,
+    .cause-body strong { color: var(--gold); font-weight: 700; }
+
     .cause .cause-stat {
       background: var(--gold);
       border: 1px solid rgba(15, 74, 40, 0.18);
@@ -840,10 +897,18 @@
       flex-shrink: 0;
       display: inline-flex;
       align-items: baseline;
+      justify-content: center;
       gap: 2px;
       color: var(--gold);
       font-family: var(--font-display);
-      line-height: 0.9;
+      line-height: 1;
+      align-self: center;
+    }
+
+    .cause-impact-percent,
+    .cause-impact-sign {
+      display: inline-block;
+      line-height: 1;
     }
 
     .cause-impact-percent {
@@ -1341,24 +1406,39 @@
       margin-bottom: 1.5rem;
     }
 
-    .encan-objective {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1rem 1.5rem;
-      background: linear-gradient(135deg, oklch(22% 0.06 85 / 0.4), oklch(18% 0.04 85 / 0.2));
-      border: 1px solid var(--gold-dim);
-      border-radius: 12px;
+    .encan-lead {
       font-family: var(--font-display);
-      font-size: clamp(1.1rem, 1.5vw, 1.3rem);
-      font-weight: 700;
-      color: var(--gold);
+      font-style: italic;
+      font-size: clamp(1rem, 1.35vw, 1.2rem) !important;
+      color: rgba(255,255,255,0.82) !important;
+      border-top: 1px solid var(--gold-dim);
+      padding-top: clamp(1.25rem, 2vw, 1.75rem);
+      max-width: 440px;
+    }
+
+    .encan-logo {
+      display: block;
+      width: clamp(150px, 14vw, 200px);
+      height: auto;
+      border-radius: 14px;
+      margin-top: clamp(1.25rem, 2.5vw, 2rem);
     }
 
     .encan-categories {
       display: grid;
       grid-template-columns: 1fr;
       gap: 1rem;
+      align-content: start;
+    }
+
+    .encan-categories-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+      font-weight: 600;
+      color: #fff;
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.25rem;
+      border-bottom: 1px solid var(--gold-dim);
     }
 
     .encan-cat {
@@ -1612,6 +1692,12 @@
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .nav-toggle { display: flex; }
+
+      .nav-logo { width: 110px; border-radius: 10px; }
+      .nav.scrolled .nav-logo { width: 70px; border-radius: 8px; }
+
+      .hero { padding-top: clamp(7rem, 16vh, 9rem); }
+      .hero-content { padding-top: 0.5rem; }
 
       .nav-links.open {
         display: flex;
@@ -1879,9 +1965,15 @@
           « On ne joue pas seulement au golf.<br>On change des vies. »
         </p>
         <div class="hero-meta reveal">
-          <div class="hero-meta-item">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
-            <span>15 septembre 2026</span>
+          <div class="hero-meta-row">
+            <div class="hero-meta-item">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+              <span>15 septembre 2026</span>
+            </div>
+            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Le+Golf+des+Maisons+%E2%80%94+%C3%89dition+2026&dates=20260915T120000Z/20260916T000000Z&details=Tournoi+de+golf-b%C3%A9n%C3%A9fice+au+profit+de+la+Fondation+Un+toit+pour+tous.+Infos%3A+https%3A%2F%2Fgolfdesmaisons.com&location=Club+de+Golf+Rosem%C3%A8re+Fontainebleau&ctz=America%2FMontreal" target="_blank" rel="noopener" class="btn-calendar" aria-label="Ajouter au calendrier Google">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+              <span>Ajouter au calendrier Google</span>
+            </a>
           </div>
           <div class="hero-meta-item">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
@@ -1911,14 +2003,14 @@
       <p class="sponsors-tier-label sponsors-tier-label--sm">Partenaires</p>
       <p class="sponsors-subtitle">Devenez partenaire de notre tournoi</p>
       <div class="sponsors-row sponsors-secondary">
-        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
-        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
-        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
-        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
-        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
-        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
-        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
-        <a href="#inscription" class="sponsor-slot sponsor-sm sponsor-cta" data-forfait="partenaire" aria-label="Devenir partenaire"><span>Votre Logo</span></a>
+        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
+        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
+        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
+        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
+        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
+        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
+        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
+        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
       </div>
     </div>
   </div>
@@ -1965,12 +2057,18 @@
         <h2 class="section-title reveal">À propos de<br>notre cause</h2>
 
         <p class="cause-lead reveal">
-          Nous croyons que chacun mérite un endroit sécuritaire où vivre.
+          La <strong>Fondation Un toit pour tous</strong> est la plus importante fondation publique au Canada dédiée au financement des maisons d'hébergement pour femmes et au soutien des programmes de prévention de la violence.
         </p>
 
         <p class="cause-body reveal">
-          Malheureusement, pour trop de femmes et d'enfants, la maison n'est pas un lieu de sécurité. La violence conjugale touche toutes les communautés, partout au pays.
+          Depuis 1998, elle a amassé plus de <strong>38 millions de dollars</strong> et soutient aujourd'hui <strong>200 maisons d'hébergement</strong>, venant en aide à plus de <strong>50 000 femmes et enfants</strong> chaque année.
         </p>
+
+        <p class="cause-body reveal">
+          Dans le cadre de cet événement, les fonds recueillis serviront à soutenir plus particulièrement les <strong>5 maisons d'hébergement des Laurentides</strong>.
+        </p>
+
+        <h3 class="cause-subtitle reveal">Une réalité qui nous touche tous</h3>
 
         <div class="cause-stats">
           <div class="cause-stat reveal">
@@ -1983,7 +2081,7 @@
           </div>
           <div class="cause-stat reveal">
             <div class="cause-stat-number">3 000+</div>
-            <div class="cause-stat-text">Chaque jour, femmes et 2 500 enfants trouvent refuge dans des maisons d'hébergement</div>
+            <div class="cause-stat-text">Femmes et 2 500 enfants trouvent refuge chaque jour dans des maisons d'hébergement</div>
           </div>
         </div>
 
@@ -1997,7 +2095,7 @@
             <span class="cause-impact-sign">%</span>
           </div>
           <p class="cause-impact-text">
-            <strong>des sommes recueillies</strong> sont remises directement aux maisons refuges qui accueillent ces femmes et leurs enfants.
+            <strong>des profits recueillis</strong> sont remises directement aux maisons refuges qui accueillent ces femmes et leurs enfants.
           </p>
         </div>
 
@@ -2019,49 +2117,49 @@
         <div class="timeline-item reveal-left">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <span class="timeline-time">11 h 00</span>
+            <span class="timeline-time">Dès 8 h 00</span>
             <h3>Accueil & Inscription</h3>
-            <p>Arrivée des participants, remise des kits de bienvenue et pratique sur le vert d'exercice.</p>
+            <p>Arrivée des participants, remise des kits de bienvenue, pratique sur le vert d'exercice.</p>
           </div>
         </div>
         <div class="timeline-item reveal-left">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <span class="timeline-time">12 h 00</span>
+            <span class="timeline-time">8 h 00 à 10 h 30</span>
             <h3>Déjeuner</h3>
-            <p>Repas convivial au clubhouse pour lancer la journée en grand.</p>
+            <p>Déjeuner continental et café de spécialité offert.</p>
           </div>
         </div>
         <div class="timeline-item reveal-left">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <span class="timeline-time">13 h 00</span>
-            <h3>Tournoi Shotgun — 18 trous</h3>
-            <p>Départ simultané sur le parcours du Club de Golf Rosemère Fontainebleau.</p>
+            <span class="timeline-time">11 h 00</span>
+            <h3>Départ Shotgun</h3>
+            <p>Départ simultané sur le prestigieux parcours du Club de Golf Rosemère Fontainebleau. Format 4 balles / meilleure balle.</p>
           </div>
         </div>
         <div class="timeline-item reveal-left">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <span class="timeline-time">En parcours</span>
+            <span class="timeline-time">Sur le terrain</span>
             <h3>Stations animées</h3>
-            <p>Bière, gin, whisky, café, dessert, BBQ et cigare — à découvrir sur le parcours.</p>
+            <p>Activités, concours, repas, collations, rafraîchissements et bien plus&nbsp;!<br><em>*Stations commanditées par nos partenaires.</em></p>
           </div>
         </div>
         <div class="timeline-item reveal-left">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <span class="timeline-time">18 h 00</span>
-            <h3>Cocktail dînatoire</h3>
-            <p>Soirée festive avec cocktails, bouchées et réseautage entre leaders.</p>
+            <span class="timeline-time">17 h à 20 h</span>
+            <h3>Cocktail dinatoire & Remise de prix</h3>
+            <p>Soirée festive avec cocktails, bouchées fines et réseautage entre 140+ gens d'affaires de la région, suivie de la remise de prix.</p>
           </div>
         </div>
         <div class="timeline-item reveal-left">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <span class="timeline-time">19 h 00</span>
-            <h3>Encan silencieux & Remise des prix</h3>
-            <p>Enchères sur des lots exclusifs et célébration des gagnants du tournoi.</p>
+            <span class="timeline-time">Toute la journée</span>
+            <h3>Encan silencieux</h3>
+            <p>Enchères sur des lots exclusifs&nbsp;: voyages, billets sportifs, gastronomie et plus encore.</p>
           </div>
         </div>
       </div>
@@ -2082,11 +2180,12 @@
           <div class="forfait-price">1 000 $</div>
           <div class="forfait-price-sub">2 joueurs</div>
           <ul class="forfait-features">
-            <li>Déjeuner inclus</li>
-            <li>Parcours 18 trous</li>
-            <li>Boîte à lunch</li>
-            <li>Voiturette partagée</li>
-            <li>Cocktail dînatoire</li>
+            <li>Déjeuner</li>
+            <li>Golf 18 trous</li>
+            <li>Dîner</li>
+            <li>Collations</li>
+            <li>Voiturette</li>
+            <li>Cocktail dinatoire</li>
           </ul>
           <div class="forfait-note">Inclus : participation au tournoi 18 trous</div>
           <div style="margin-top: 1.5rem;">
@@ -2102,11 +2201,12 @@
           <div class="forfait-price">2 000 $</div>
           <div class="forfait-price-sub">4 joueurs — 500 $ / personne</div>
           <ul class="forfait-features">
-            <li>Déjeuner pour 4</li>
-            <li>Parcours 18 trous</li>
-            <li>Boîte à lunch pour 4</li>
+            <li>Déjeuner</li>
+            <li>Golf 18 trous</li>
+            <li>Dîner</li>
+            <li>Collations</li>
             <li>2 voiturettes</li>
-            <li>Cocktail dînatoire pour 4</li>
+            <li>Cocktail dinatoire</li>
           </ul>
           <div class="forfait-note">Idéal pour les équipes corporatives</div>
           <div style="margin-top: 1.5rem;">
@@ -2120,13 +2220,16 @@
         <div class="forfait-card vip reveal">
           <div class="forfait-name">Quatuor VIP</div>
           <div class="forfait-price">2 750 $</div>
-          <div class="forfait-price-sub">4 joueurs VIP — Tout inclus</div>
+          <div class="forfait-price-sub">4 joueurs VIP</div>
           <ul class="forfait-features">
-            <li>Tout inclus pour 4 joueurs</li>
-            <li>Voiturettes personnalisées</li>
-            <li>Logo sur les affiches</li>
-            <li>Mousseux à l'accueil</li>
-            <li>Casiers et accès premium</li>
+            <li>Déjeuner</li>
+            <li>Golf 18 trous</li>
+            <li>Dîner</li>
+            <li>Collations</li>
+            <li>2 voiturettes personnalisées avec logo affiché</li>
+            <li>1 bouteille de champagne incluse</li>
+            <li>Casiers réservés</li>
+            <li>Traitement VIP</li>
           </ul>
           <div class="forfait-note">Format premium pour maximiser la visibilité</div>
           <div style="margin-top: 1.5rem;">
@@ -2149,16 +2252,16 @@
       <div class="commandites-presenter reveal-scale">
         <div>
           <h3>Présentateur officiel</h3>
-          <p>Nom associé au tournoi &bull; 2 quatuors VIP &bull; Logo partout &bull; Discours &bull; Arche au départ &bull; Station commanditée</p>
+          <p>Nom associé au tournoi &bull; 1 quatuor &bull; Logo sur toutes les communications &bull; Discours &bull; Arche au départ &bull; Station commanditée</p>
         </div>
         <div class="price-tag">10 000 $</div>
       </div>
 
       <div class="commandites-grid">
         <div class="commandite-card reveal">
-          <h4>Cocktail dînatoire</h4>
+          <h4>Commanditaire cocktail dinatoire</h4>
           <div class="cmd-price">5 500 $</div>
-          <p>Visibilité majeure &bull; Logo wall frame/TV &bull; 1 quatuor VIP inclus &bull; Mention soirée</p>
+          <p>Visibilité majeure &bull; Logo wall frame/TV &bull; 1 quatuor &bull; Mention soirée</p>
         </div>
         <div class="commandite-card reveal">
           <h4>Commanditaire déjeuner</h4>
@@ -2166,17 +2269,12 @@
           <p>Visibilité pendant le déjeuner &bull; Logo sur affichage principal</p>
         </div>
         <div class="commandite-card reveal">
-          <h4>Boîte à lunch</h4>
-          <div class="cmd-price">2 500 $</div>
-          <p>Visibilité lors de la distribution sur le parcours</p>
-        </div>
-        <div class="commandite-card reveal">
           <h4>Commanditaire voiturettes</h4>
           <div class="cmd-price">2 000 $</div>
           <p>Logo sur les voiturettes &bull; Visibilité tout au long de la journée</p>
         </div>
         <div class="commandite-card reveal">
-          <h4>Bouteilles d'eau</h4>
+          <h4>Commanditaire bouteilles d'eau</h4>
           <div class="cmd-price">1 500 $</div>
           <p>Visibilité stations d'eau et parcours</p>
         </div>
@@ -2194,10 +2292,11 @@
           <h3>Stations animées</h3>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">6 disponibles</p>
           <div class="block-price">1 500 $ / station</div>
+          <p style="font-weight: 600; color: #fff; margin-top: 1.25rem; margin-bottom: 0.5rem;">Chaque station comprend :</p>
           <ul>
-            <li>Tente sur le parcours</li>
+            <li>Emplacement pour tente/kiosque sur le parcours</li>
             <li>Interaction directe avec les joueurs</li>
-            <li>Logo et visibilité sur l'événement</li>
+            <li>Logo et visibilité lors de l'événement</li>
           </ul>
           <div class="stations-tags">
             <span class="stations-tag">Bière</span>
@@ -2207,16 +2306,18 @@
             <span class="stations-tag">Dessert</span>
             <span class="stations-tag">BBQ</span>
             <span class="stations-tag">Cigare</span>
+            <span class="stations-tag">Collations</span>
           </div>
         </div>
         <div class="stations-block reveal-right">
           <h3>Trous commandités</h3>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">8 disponibles — 2 commanditaires par trou</p>
           <div class="block-price">500 $ / trou</div>
-          <h4 style="font-family: var(--font-display); font-size: 1rem; color: var(--gold); margin-top: 1.5rem; margin-bottom: 0.75rem;">Activités spéciales — 4 trous</h4>
+          <p style="color: rgba(255,255,255,0.85); margin-top: 1rem;">Pancarte à l'effigie de votre entreprise sur le trou.</p>
+          <h4 style="font-family: var(--font-display); font-size: 1rem; color: var(--gold); margin-top: 1.75rem; margin-bottom: 0.75rem;">Activités spéciales — 4 trous</h4>
           <div class="activities-list">
             <div class="activity-item">
-              <span>Trou d'un coup (voiture 1 an)</span>
+              <span>Trou d'un coup <em style="color: var(--text-muted); font-style: normal;">(ex. : location d'un véhicule)</em></span>
               <span>1 500 $</span>
             </div>
             <div class="activity-item">
@@ -2244,15 +2345,16 @@
         <div class="encan-content">
           <div class="section-label reveal">Partenariat encan</div>
           <h2 class="section-title reveal">Encan<br>silencieux</h2>
-          <p class="reveal">Offrez une contribution et obtenez une visibilité numérique prolongée au-delà de la journée de golf.</p>
-          <div class="encan-objective reveal">Objectif : 10 000 $</div>
+          <p class="encan-lead reveal"><em>Offrez une contribution et obtenez une visibilité numérique prolongée au-delà de la journée de golf.</em></p>
+          <img src="logo-final.jpg" alt="Le Golf des Maisons — Édition 2026" class="encan-logo reveal">
         </div>
         <div class="encan-categories">
+          <h3 class="encan-categories-title reveal">Types de contributions acceptées</h3>
           <div class="encan-cat reveal-right">
             <div class="encan-cat-icon">🏆</div>
             <div>
               <h4>Expériences sportives</h4>
-              <p>Billets Canadiens, loges, événements</p>
+              <p>Billets de hockey, loges, évènements</p>
             </div>
           </div>
           <div class="encan-cat reveal-right">
