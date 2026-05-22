@@ -1260,12 +1260,14 @@
     .don-icon svg { width: 42px; height: 42px; }
 
     .btn-don {
-      background: var(--pink) !important;
-      color: #fff !important;
+      background: #fff !important;
+      color: var(--pink) !important;
       width: 100%;
+      border: 1px solid rgba(212, 83, 126, 0.3);
     }
 
-    .btn-don .btn-spordle-label { color: #fff; }
+    .btn-don .btn-spordle-label { color: var(--pink); }
+    .btn-don:hover { background: oklch(95% 0.03 5) !important; }
 
     @media (max-width: 720px) {
       .don-inner { grid-template-columns: 1fr; text-align: center; }
