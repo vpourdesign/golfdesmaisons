@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Save the Date — Le Golf des Maisons 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #1a5c38;
+      --green-deep: #0f4a28;
+      --green-darker: #0b3a1f;
+      --gold: #e8d44d;
+      --pink: #d4537e;
+      --font-display: 'Fraunces', serif;
+      --font-sans: 'DM Sans', sans-serif;
+    }
+
+    html { height: 100%; margin: 0; padding: 0; }
+    body { width: 1080px; height: 1080px; min-height: 100vh; overflow: hidden; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--green-deep);
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .card {
+      position: relative;
+      width: 1080px;
+      height: 100vh;
+      min-height: 1080px;
+      background: linear-gradient(180deg, #1a5c38 0%, #0f4a28 100%);
+      overflow: hidden;
+    }
+
+    /* ---------- TOP TEXT BLOCK ---------- */
+    .top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 70px 80px 0;
+      z-index: 2;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 50px;
+    }
+
+    .logo {
+      width: 240px;
+      height: auto;
+      border-radius: 16px;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .header-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      border-left: 1px solid rgba(232, 212, 77, 0.4);
+      padding-left: 28px;
+    }
+
+    .header-info .label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .header-info .place {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+
+    .header-info .addr {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.78);
+      letter-spacing: 0.02em;
+    }
+
+    /* Title — single line, all white */
+    .save {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 96px;
+      line-height: 1;
+      letter-spacing: -0.035em;
+      color: #fff;
+      text-align: center;
+    }
+
+    .save .ital {
+      font-style: italic;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    /* Date block */
+    .date-block {
+      text-align: center;
+      margin-top: 28px;
+    }
+
+    .date {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 50px;
+      letter-spacing: -0.02em;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .year {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-style: italic;
+      font-size: 38px;
+      color: var(--gold);
+      margin-left: 14px;
+    }
+
+    .meta {
+      margin-top: 14px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .meta .sep { color: var(--gold); margin: 0 12px; font-weight: 400; }
+
+    /* ---------- BOTTOM IMAGE ---------- */
+    .image-wrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 540px;
+      height: 540px;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .image-wrap img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1080px;
+      height: 720px;
+      transform: translate(-50%, -50%) translateY(-30px);
+      display: block;
+      max-width: none;
+    }
+
+    .image-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15, 74, 40, 0.45) 0%, transparent 25%);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- TOP — text + logo -->
+    <div class="top">
+      <header class="header">
+        <img src="../logo-final.jpg" alt="Le Golf des Maisons" class="logo">
+        <div class="header-info">
+          <span class="label">Lieu</span>
+          <span class="place">Club de Golf Rosemère<br>Fontainebleau</span>
+          <span class="addr">Édition 2026 · Tournoi-bénéfice</span>
+        </div>
+      </header>
+
+      <h1 class="save">Réservez <span class="ital">la date</span></h1>
+
+      <div class="date-block">
+        <span class="date">15 septembre</span><span class="year">2026</span>
+        <p class="meta">Mardi <span class="sep">·</span> Départ Shotgun 11&nbsp;h</p>
+      </div>
+    </div>
+
+    <!-- BOTTOM — full bleed landscape image -->
+    <div class="image-wrap">
+      <img src="../1.png" alt="Parcours de golf au lever du soleil">
+    </div>
+  </div>
+</body>
+</html>

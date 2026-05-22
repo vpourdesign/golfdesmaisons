@@ -1060,6 +1060,218 @@
       gap: clamp(1.25rem, 2vw, 2rem);
     }
 
+    .forfaits-addons-label {
+      margin-top: clamp(3rem, 5vw, 4rem);
+      margin-bottom: clamp(1.25rem, 2vw, 1.75rem);
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+      font-weight: 600;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: -0.01em;
+    }
+
+    .forfaits-addons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(1.25rem, 2vw, 2rem);
+      max-width: 880px;
+      margin-inline: auto;
+    }
+
+    .addon-card {
+      background: var(--bg-deep);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: clamp(1.5rem, 2.5vw, 2rem);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      transition: border-color 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+    }
+
+    .addon-card:hover {
+      border-color: var(--gold-dim);
+      transform: translateY(-3px);
+    }
+
+    .addon-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .addon-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+
+    .addon-time {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 0.35rem;
+    }
+
+    .addon-price {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .addon-desc {
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    @media (max-width: 640px) {
+      .forfaits-addons { grid-template-columns: 1fr; }
+    }
+
+    /* ===== DON CARD ===== */
+    .don-card {
+      margin-top: clamp(2.5rem, 4.5vw, 3.75rem);
+      max-width: 880px;
+      margin-inline: auto;
+      position: relative;
+      border-radius: 22px;
+      padding: clamp(2rem, 3.5vw, 3rem);
+      background:
+        radial-gradient(120% 100% at 100% 0%, oklch(60% 0.18 5 / 0.25), transparent 55%),
+        linear-gradient(135deg, oklch(28% 0.08 5 / 0.65) 0%, oklch(22% 0.06 145 / 0.85) 100%);
+      border: 1px solid oklch(60% 0.18 5 / 0.32);
+      box-shadow:
+        0 2px 6px oklch(20% 0.12 5 / 0.18),
+        0 24px 60px oklch(20% 0.12 5 / 0.22);
+      overflow: hidden;
+    }
+
+    .don-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--pink), oklch(60% 0.18 5 / 0.4));
+    }
+
+    .don-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+      align-items: center;
+    }
+
+    .don-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 0.75rem;
+    }
+
+    .don-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .don-title .don-accent {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--pink);
+    }
+
+    .don-text {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.88);
+      margin: 0 0 0.85rem;
+    }
+
+    .don-text strong { color: var(--gold); font-weight: 700; }
+
+    .don-cta-line {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #fff;
+      margin: 0 0 1rem;
+    }
+
+    .don-cta-line strong {
+      color: var(--gold);
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    .don-fineprint {
+      font-size: 0.72rem;
+      font-style: italic;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.55);
+      margin: 0;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .don-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      min-width: 200px;
+    }
+
+    .don-icon {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: oklch(60% 0.18 5 / 0.12);
+      border: 1px solid oklch(60% 0.18 5 / 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--pink);
+      flex-shrink: 0;
+    }
+
+    .don-icon svg { width: 42px; height: 42px; }
+
+    .btn-don {
+      background: var(--pink) !important;
+      color: #fff !important;
+      width: 100%;
+    }
+
+    .btn-don .btn-spordle-label { color: #fff; }
+
+    @media (max-width: 720px) {
+      .don-inner { grid-template-columns: 1fr; text-align: center; }
+      .don-right { width: 100%; }
+    }
+
     .forfait-card {
       background: var(--bg-deep);
       border: 1px solid var(--border-subtle);
@@ -2271,6 +2483,61 @@
           <div style="margin-top: 1.5rem;">
             <a href="https://event.spordle.com/fr/billetterie/achat-de-billet/2021/11322" target="_blank" rel="noopener" class="btn-spordle btn-spordle--block">
               <span class="btn-spordle-label">S'inscrire sur</span>
+              <img src="spordle.webp" alt="Spordle" class="btn-spordle-logo">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add-on tickets -->
+      <div class="forfaits-addons-label reveal">Billets à l'unité</div>
+      <div class="forfaits-addons reveal">
+        <div class="addon-card">
+          <div class="addon-head">
+            <div>
+              <div class="addon-name">Déjeuner</div>
+              <div class="addon-time">De 8 h 00 à 10 h 30</div>
+            </div>
+            <div class="addon-price">100&nbsp;$</div>
+          </div>
+          <p class="addon-desc">Déjeuner continental et café de spécialité offert.</p>
+          <a href="https://event.spordle.com/fr/billetterie/achat-de-billet/2021/11322" target="_blank" rel="noopener" class="btn-spordle btn-spordle--block btn-spordle--sm">
+            <span class="btn-spordle-label">S'inscrire sur</span>
+            <img src="spordle.webp" alt="Spordle" class="btn-spordle-logo">
+          </a>
+        </div>
+        <div class="addon-card">
+          <div class="addon-head">
+            <div>
+              <div class="addon-name">Cocktail dinatoire</div>
+              <div class="addon-time">De 17 h 00 à 20 h 00</div>
+            </div>
+            <div class="addon-price">200&nbsp;$</div>
+          </div>
+          <p class="addon-desc">Soirée festive avec cocktails, bouchées fines et réseautage entre 140+ gens d'affaires de la région.</p>
+          <a href="https://event.spordle.com/fr/billetterie/achat-de-billet/2021/11322" target="_blank" rel="noopener" class="btn-spordle btn-spordle--block btn-spordle--sm">
+            <span class="btn-spordle-label">S'inscrire sur</span>
+            <img src="spordle.webp" alt="Spordle" class="btn-spordle-logo">
+          </a>
+        </div>
+      </div>
+
+      <!-- DON -->
+      <div class="don-card reveal">
+        <div class="don-inner">
+          <div class="don-left">
+            <div class="don-eyebrow">Faire un don</div>
+            <h3 class="don-title">Soutenez la <span class="don-accent">cause</span></h3>
+            <p class="don-text">Bien que votre participation soit un geste de soutien important à la cause, ce sont <strong>tous les dons recueillis</strong> lors de cet évènement qui feront une différence dans la vie des familles qui, tous les jours, doivent avoir recours à ces centres d'hébergement épaulés par la Fondation.</p>
+            <p class="don-cta-line">Nous comptons sur votre <strong>grande générosité</strong>&nbsp;!</p>
+            <p class="don-fineprint">*Un reçu d'impôt sera émis pour chaque don supplémentaire, à la fin de l'année fiscale, par la Fondation Un Toit Pour Tous.</p>
+          </div>
+          <div class="don-right">
+            <div class="don-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+            </div>
+            <a href="https://event.spordle.com/fr/billetterie/achat-de-billet/2021/11322" target="_blank" rel="noopener" class="btn-spordle btn-spordle--block btn-don">
+              <span class="btn-spordle-label">Faire un don sur</span>
               <img src="spordle.webp" alt="Spordle" class="btn-spordle-logo">
             </a>
           </div>
