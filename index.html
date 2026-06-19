@@ -662,6 +662,19 @@
       width: auto;
     }
 
+    /* Tier 2 uniform white tiles — same outer footprint, logos auto-fit with breathing room */
+    .sponsor-md {
+      width: clamp(150px, 14vw, 190px);
+      height: clamp(80px, 8vw, 100px);
+      padding: clamp(0.9rem, 1.4vw, 1.2rem) clamp(1rem, 1.8vw, 1.5rem);
+    }
+    .sponsor-md img {
+      max-height: 100%;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+    }
+
     .sponsors-divider {
       width: 60px;
       height: 1px;
@@ -2252,7 +2265,6 @@
     <div class="container">
       <p class="sponsors-tier-label">Partenaires principaux</p>
       <div class="sponsors-row sponsors-principal">
-        <div class="sponsor-slot sponsor-lg sponsor-white-bg"><img src="commandite2.png" alt="Partenaire principal"></div>
         <div class="sponsor-slot sponsor-lg sponsor-white-bg"><img src="desjardins.png" alt="Desjardins — Partenaire principal"></div>
         <div class="sponsor-slot sponsor-lg sponsor-white-bg"><img src="spordle.webp" alt="Spordle — Partenaire principal"></div>
         <div class="sponsor-slot sponsor-lg sponsor-white-bg sponsor-pad-lg"><img src="logoaffichage.png" alt="Partenaire principal"></div>
@@ -2261,13 +2273,14 @@
       <p class="sponsors-tier-label sponsors-tier-label--sm">Partenaires</p>
       <p class="sponsors-subtitle">Devenez partenaire de notre tournoi</p>
       <div class="sponsors-row sponsors-secondary">
-        <div class="sponsor-slot sponsor-sm sponsor-white-bg"><img src="lexus.png" alt="Lexus Laval"></div>
-        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
-        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
-        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
-        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
-        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
-        <div class="sponsor-slot sponsor-sm sponsor-cta"><span>Votre Logo</span></div>
+        <div class="sponsor-slot sponsor-md sponsor-white-bg"><img src="commandite2.png" alt="Partenaire"></div>
+        <div class="sponsor-slot sponsor-md sponsor-white-bg"><img src="lexus.png" alt="Lexus Laval"></div>
+        <div class="sponsor-slot sponsor-md sponsor-white-bg"><img src="logos/rbc.png" alt="RBC"></div>
+        <div class="sponsor-slot sponsor-md sponsor-white-bg"><img src="logos/lauzon.png" alt="Lauzon"></div>
+        <div class="sponsor-slot sponsor-md sponsor-white-bg"><img src="logos/blancnoir.jpg" alt="Partenaire"></div>
+        <div class="sponsor-slot sponsor-md sponsor-white-bg"><img src="logos/allume.jpeg" alt="Partenaire"></div>
+        <div class="sponsor-slot sponsor-md sponsor-cta"><span>Votre Logo</span></div>
+        <div class="sponsor-slot sponsor-md sponsor-cta"><span>Votre Logo</span></div>
       </div>
     </div>
   </div>
