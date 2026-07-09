@@ -680,6 +680,14 @@
       padding: clamp(0.35rem, 0.6vw, 0.5rem) clamp(0.5rem, 0.8vw, 0.7rem);
     }
 
+    /* dark tile for white/knockout logos (Visique blanc, etc.) */
+    .sponsor-dark-bg {
+      background: var(--green-deep, #0f4a28);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+    .sponsor-dark-bg:hover { background: var(--green-deep, #0f4a28); }
+    .sponsor-dark-bg img { opacity: 1; }
+
     .sponsors-divider {
       width: 60px;
       height: 1px;
@@ -2285,7 +2293,9 @@
         <div class="sponsor-slot sponsor-md sponsor-white-bg"><img src="logos/blancnoir.jpg" alt="Partenaire"></div>
         <div class="sponsor-slot sponsor-md sponsor-white-bg"><img src="logos/allume.jpeg" alt="Partenaire"></div>
         <div class="sponsor-slot sponsor-md sponsor-tight sponsor-white-bg"><img src="logos/iv.png" alt="Institut Viviana"></div>
-        <div class="sponsor-slot sponsor-md sponsor-cta"><span>Votre Logo</span></div>
+        <div class="sponsor-slot sponsor-md sponsor-white-bg"><img src="logos/sleeman.png" alt="Sleeman"></div>
+        <div class="sponsor-slot sponsor-md sponsor-white-bg"><img src="logos/labatt.png" alt="Labatt"></div>
+        <div class="sponsor-slot sponsor-md sponsor-dark-bg"><img src="logos/visique.png" alt="Visique"></div>
         <div class="sponsor-slot sponsor-md sponsor-cta"><span>Votre Logo</span></div>
       </div>
     </div>
