@@ -9,7 +9,7 @@
 ## ✅ À faire
 
 - [ ] Ajouter le logo Lexus Laval (commanditaire confirmé) sur le site Le Golf des Maisons — Vanessa Cefaloni (Dilawri) a envoyé les options de logo vectoriels le 2026-05-25
-- [ ] [2026-08-07] **Logos manquants à demander au client** — Partenaires : Toitex, Costco Boisbriand. Encan silencieux : Lionel, Bordel Comédie Club, SurMesur, Idolem Yoga. (Vectoriel ou PNG haute résolution, fond transparent.)
+- [ ] [2026-08-07] **Logo manquant à demander au client** — Encan silencieux : **Lionel**. (Vectoriel ou PNG haute résolution, fond transparent.) Tous les autres logos du 7 août sont intégrés.
 
 ## 💭 Long shots
 
