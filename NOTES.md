@@ -9,7 +9,6 @@
 ## ✅ À faire
 
 - [ ] Ajouter le logo Lexus Laval (commanditaire confirmé) sur le site Le Golf des Maisons — Vanessa Cefaloni (Dilawri) a envoyé les options de logo vectoriels le 2026-05-25
-- [ ] [2026-08-07] **Logo manquant à demander au client** — Encan silencieux : **Lionel**. (Vectoriel ou PNG haute résolution, fond transparent.) Tous les autres logos du 7 août sont intégrés.
 
 ## 💭 Long shots
 
@@ -28,4 +27,5 @@
 - **Statut « trou d'un coup »** : déjà réservé par un autre concessionnaire — alternative Lexus = commandite trou (le 500 $)
 
 ## ✓ Fait
+- [x] [2026-08-07] **Commandites séparées en deux blocs** sur le site : « Partenaires » et « Partenaires de l'encan silencieux ». Sleeman retiré, Visique déplacé vers l'encan. Tous les logos du 7 août intégrés (Boréale, Objectifs R, Boîte Smart, Garage Mondou, MICA, Toitex, Costco Boisbriand, Chez Lionel, Bordel Comédie Club, SurMesur, Idolem, Centre Chiro Fontainebleau, Le Sanctuaire, Le Salon Sugar)
 - [x] [2026-06-04] **2026-06-02** Répondre à Alexandre Brosseau : ajouter logo Lexus Laval sur le site maintenant ou attendre la décision finale sur le « trou d'un coup » ? ([Thread Gmail](https://mail.google.com/mail/u/0/#inbox/19e7bbb1177e1aed))

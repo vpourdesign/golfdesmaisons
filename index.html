@@ -688,6 +688,14 @@
     .sponsor-dark-bg:hover { background: var(--green-deep, #0f4a28); }
     .sponsor-dark-bg img { opacity: 1; }
 
+    /* tuile noire pour les logos dont le fond noir fait partie de l'identité (Chez Lionel) */
+    .sponsor-black-bg {
+      background: #0d0708;
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+    .sponsor-black-bg:hover { background: #0d0708; }
+    .sponsor-black-bg img { opacity: 1; }
+
     .sponsors-divider {
       width: 60px;
       height: 1px;
@@ -2310,6 +2318,7 @@
       <div class="sponsors-divider"></div>
       <p class="sponsors-tier-label sponsors-tier-label--sm">Partenaires de l'encan silencieux</p>
       <div class="sponsors-row sponsors-encan">
+        <div class="sponsor-slot sponsor-md sponsor-tight sponsor-black-bg"><img src="logos/lionel.png" alt="Chez Lionel"></div>
         <div class="sponsor-slot sponsor-md sponsor-dark-bg"><img src="logos/visique.png" alt="Visique"></div>
         <div class="sponsor-slot sponsor-md sponsor-tight sponsor-white-bg"><img src="logos/chiro-fontainebleau.png" alt="Centre Chiropratique Les portes du Fontainebleau"></div>
         <div class="sponsor-slot sponsor-md sponsor-tight sponsor-white-bg"><img src="logos/sanctuaire.png" alt="Le Sanctuaire — Head Spa"></div>
