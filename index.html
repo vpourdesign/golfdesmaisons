@@ -688,6 +688,14 @@
       height: auto;
     }
 
+    /* tuile de 2e rang dont l'image porte son propre fond — l'image remplit la case */
+    .sponsor-md.sponsor-fill { padding: 0; }
+    .sponsor-md.sponsor-fill img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     /* logo with generous internal whitespace — reduce padding so it fills the tile */
     .sponsor-md.sponsor-tight {
       padding: clamp(0.35rem, 0.6vw, 0.5rem) clamp(0.5rem, 0.8vw, 0.7rem);
@@ -2302,12 +2310,12 @@
         <div class="sponsor-slot sponsor-lg sponsor-white-bg"><img src="commandite2.png" alt="V pour Design — Partenaire principal"></div>
         <div class="sponsor-slot sponsor-lg sponsor-white-bg"><img src="desjardins.png" alt="Desjardins — Partenaire principal"></div>
         <div class="sponsor-slot sponsor-lg sponsor-white-bg"><img src="spordle.webp" alt="Spordle — Partenaire principal"></div>
-        <div class="sponsor-slot sponsor-lg sponsor-fill"><img src="logos/paris-ladouceur.png" alt="Paris, Ladouceur — Évaluateurs agréés — Partenaire principal"></div>
       </div>
       <div class="sponsors-divider"></div>
       <p class="sponsors-tier-label sponsors-tier-label--sm">Partenaires</p>
       <p class="sponsors-subtitle">Devenez partenaire de notre tournoi</p>
       <div class="sponsors-row sponsors-secondary">
+        <div class="sponsor-slot sponsor-md sponsor-fill"><img src="logos/paris-ladouceur.png" alt="Paris, Ladouceur — Évaluateurs agréés"></div>
         <div class="sponsor-slot sponsor-md sponsor-white-bg"><img src="logoaffichage.png" alt="Affichage Impression"></div>
         <div class="sponsor-slot sponsor-md sponsor-white-bg"><img src="lexus.png" alt="Lexus Laval"></div>
         <div class="sponsor-slot sponsor-md sponsor-white-bg"><img src="logos/rbc.png" alt="RBC"></div>
